@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Frog Pond</title>
+  <meta name="theme-color" content="#2f6f4e">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Top bar -->
+  <header class="topbar">
+    <button id="hamburger" aria-label="Menu" class="hamburger">☰</button>
+    <div class="brand">🐸&nbsp;Frog&nbsp;Pond</div>
+  </header>
+
+  <!-- Drawer -->
+  <aside id="drawer" class="drawer">
+    <nav class="drawer-list">
+      <button class="drawer-item" data-view="timer-setup">Timer</button>
+      <button class="drawer-item" data-view="pond">Pond</button>
+      <button class="drawer-item" data-view="history">History</button>
+      <button class="drawer-item" data-view="todo">To-Do</button>
+      <button class="drawer-item" data-view="biggest">Biggest</button>
+    </nav>
+  </aside>
+  <div id="scrim" class="scrim"></div>
+
+  <main id="views">
+    <!-- TIMER (home) -->
+    <section id="timer-setup" class="view visible">
+      <div class="timer-hero">
+        <svg id="dial" viewBox="0 0 240 240" class="dial">
+          <defs><clipPath id="frogClip"><circle cx="120" cy="120" r="76"/></clipPath></defs>
+          <circle cx="120" cy="120" r="90" class="dial-track"/>
+          <circle id="dialArc" cx="120" cy="120" r="90" class="dial-arc"/>
+          <image id="frogImg"
+                 href="assets/frogs/BabyFrog.png"
+                 x="44" y="44" width="152" height="152"
+                 preserveAspectRatio="xMidYMid meet"
+                 clip-path="url(#frogClip)"
+                 transform="translate(120,120) scale(1.18) translate(-120,-120) translate(0,-6)"/>
+          <circle id="dialKnob" cx="120" cy="30" r="10" class="dial-knob"/>
+        </svg>
+
+        <div class="big-time" id="timerPreview">25:00</div>
+        <div class="row" style="gap:12px; justify-content:center;">
+          <button id="musicToggleSetup" class="icon-toggle on" title="Music">🎧</button>
+          <button id="startTimerBtn" class="btn primary">Start</button>
+        </div>
+        <input id="timerTitle" class="input center" placeholder="Study" maxlength="30"/>
+      </div>
+    </section>
+
+    <!-- RUNNING -->
+    <section id="timer-run" class="view">
+      <div class="center">
+        <div class="big-time" id="countdown">25:00</div>
+        <div class="subtle" id="queuedInfo">Frogs: 0</div>
+        <div class="row" style="gap:12px;">
+          <button id="musicToggleRun" class="icon-toggle on" title="Music">🎧</button>
+          <button id="cancelTimerBtn" class="btn">Cancel</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- POD MODAL -->
+    <dialog id="podModal">
+      <h3>Pod ready</h3>
+      <p><b><span id="podCount">0</span></b> baby frogs.</p>
+      <div class="modal-actions">
+        <button id="releaseManualBtn" class="btn primary">Release</button>
+        <button id="releaseAutoBtn" class="btn">Release + Auto</button>
+      </div>
+    </dialog>
+
+    <!-- Galaxy celebration -->
+    <dialog id="galaxyModal">
+      <img id="galaxyPreview" src="assets/frogs/GalaxyFrog.png" alt="" style="width:140px;height:140px;object-fit:contain;display:block;margin:0 auto 8px;">
+      <h3 style="text-align:center;margin:0 0 6px;">The greatest frog ever existed</h3>
+      <p style="text-align:center;margin:0 0 14px;opacity:.8;">Hail before the Galaxy Frogs.</p>
+      <p id="galaxyMinutes" style="text-align:center;margin:0 0 14px;opacity:.7;"></p>
+      <div class="modal-actions" style="justify-content:center;">
+        <button id="galaxyOk" class="btn primary">Nice</button>
+      </div>
+    </dialog>
+
+    <!-- POND -->
+    <section id="pond" class="view">
+      <div class="pond-wrap">
+        <label class="pond-hud">
+          <input id="autoMergeToggle" type="checkbox"><span>Auto-merge</span>
+        </label>
+        <canvas id="pondCanvas"></canvas>
+      </div>
+    </section>
+
+    <!-- HISTORY -->
+    <section id="history" class="view">
+      <div class="list" id="historyList"></div>
+    </section>
+
+    <!-- TO-DO -->
+    <section id="todo" class="view">
+      <div class="card">
+        <input id="todoTitle" class="input" placeholder="New goal…" maxlength="40" />
+        <div class="row" style="gap:12px;">
+          <div class="value-pill"><span id="todoMinutesText">25</span><small>min</small></div>
+          <input id="todoSlider" type="range" min="1" max="120" value="25" class="slider" />
+          <button id="addTodoBtn" class="btn">Add</button>
+        </div>
+      </div>
+      <div class="list" id="todoList"></div>
+    </section>
+
+    <!-- BIGGEST -->
+    <section id="biggest" class="view">
+      <div class="card center">
+        <img id="biggestImg" alt="" class="biggest-img" />
+        <div id="biggestInfo" class="biggest">Tier 1 — Baby Frog</div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Confirm dialog -->
+  <dialog id="confirmDialog">
+    <h3 id="confirmTitle" style="margin:0 0 8px">Confirm</h3>
+    <p id="confirmMsg" style="margin:0 0 12px">Are you sure?</p>
+    <div class="modal-actions">
+      <button id="confirmNo" class="btn">Cancel</button>
+      <button id="confirmYes" class="btn primary">OK</button>
+    </div>
+  </dialog>
+
+  <!-- App JS -->
+  <script src="main.js"></script>
+</body>
+</html>
