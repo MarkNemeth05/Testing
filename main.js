@@ -27,7 +27,7 @@ const state={
   seenGalaxyModal:false
 };
 
-const SPAWN_MS = 30*60*1000; // 30m per spawn
+const SPAWN_MS = 15
 let W=540, H=700;
 
 // ----- UI helpers -----
