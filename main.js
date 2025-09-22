@@ -27,7 +27,7 @@ const state={
   seenGalaxyModal:false
 };
 
-const SPAWN_MS = 15
+const SPAWN_MS = 1500
 let W=540, H=700;
 
 // ----- UI helpers -----
